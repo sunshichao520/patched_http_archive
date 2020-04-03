@@ -9,7 +9,8 @@ def _new_patched_http_archive_impl(rctx):
 
   # Now patch the repository
   patch_file = str(rctx.path(rctx.attr.patch).realpath)
-  result = rctx.execute(["bash", "-c", "pwd && patch -p0 < " + patch_file])
+  patch_args = rctx.attr.patch_args
+  result = rctx.execute(["bash", "-c", "pwd && patch " + patch_args + " < " + patch_file])
   if result.return_code != 0:
     fail("Failed to patch (%s): %s" % (result.return_code, result.stdout))
 
@@ -26,6 +27,7 @@ new_patched_http_archive = repository_rule(
         "strip_prefix": attr.string(mandatory=False, default=""),
         "type": attr.string(mandatory=False, default=""),
         "build_file": attr.label(mandatory=True),
+        "patch_args": attr.string(mandatory=False, default="-p0"),
     })
 
 patched_http_archive = repository_rule(
@@ -36,4 +38,5 @@ patched_http_archive = repository_rule(
         "sha256": attr.string(mandatory=True),
         "strip_prefix": attr.string(mandatory=False, default=""),
         "type": attr.string(mandatory=False, default=""),
+        "patch_args": attr.string(mandatory=False, default="-p0"),
     })
