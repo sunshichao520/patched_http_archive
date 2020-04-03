@@ -6,7 +6,7 @@ To use these rules, add the following to your `WORKSPACE` file:
 git_repository(
     name = "com_github_patched_http_archive",
     remote = "https://github.com/sunshichao520/patched_http_archive.git",
-    commit = "41a74c4ce20aaa58186ae33fbaf50d6c9124c9ce",
+    commit = "5159f264a3d66fb0239051f9ad468c6c78c03552",
 )
 load("@com_github_patched_http_archive//:com_github_patched_http_archive.bzl", "patched_http_archive")
 ```
